@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>轮播</title>
+		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+		<style type="text/css">
+			#box{
+				width: 600px;
+				height: 400px;
+				margin: 50px auto;
+				border: 10px solid lightgreen;
+				overflow: hidden;
+			}
+			.img{
+				display: flex;
+				align-items: flex-start;
+				transition: all .5s;
+			}
+			.span{
+				width: 600px;
+				text-align: center;
+				margin-top: 20px;
+			}
+			.red{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="img">
+				<img src="images/102.jpg" width="600" >
+				<img src="images/103.jpg" width="600" >
+				<img src="images/104.jpg" width="600" >
+				<img src="images/105.jpg" width="600" >
+				<img src="images/106.jpg" width="600" >
+			</div>
+			<div class="span">
+				<span>第1张</span>
+				<span>第2张</span>
+				<span>第3张</span>
+				<span>第4张</span>
+				<span>第5张</span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function activeBtn(x){
+				x
+					.addClass('red')
+					.siblings('.red').removeClass('red')
+			}
+			
+			var allBtns = $('span')
+			var n = 0
+			for(var i=0;i<allBtns.length;i++){
+				$(allBtns[i]).on('click',function(x){
+					var index = $(x.currentTarget).index()
+					var p = index * -600
+					$('.img').css({
+						transform: 'translate(' + p + 'px)'
+					})
+					n = index
+					activeBtn(allBtns.eq(n))
+				})
+			}
+			var size = allBtns.length
+			allBtns.eq(n % size).trigger('click')
+			var timeId = setTimer()
+			
+			function setTimer(){
+				return setInterval(function(){
+					n+=1
+					allBtns.eq(n % size).trigger('click')
+				},1000)
+			}
+			// setTimer()
+			$('#box').on('mouseenter',function(){
+				window.clearInterval(timeId)
+			})
+			$('#box').on('mouseleave',function(){
+				timeId=setTimer()
+			})
+			
+			
+		</script>
+	</body>
+</html>

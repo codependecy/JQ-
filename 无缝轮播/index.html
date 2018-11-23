@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>无缝轮播</title>
+		<script src="jquery-3.2.1.min.js"></script>
+		<style type="text/css">
+			#box{
+				width: 400px;
+				height: 300px;
+				margin: 50px auto;
+				display: flex;
+				align-items: flex-start;
+				transition: all .5s;
+				position: relative;
+			}
+			button{
+				display: block;
+				width: 100px;
+				height: 100px;
+				margin: 0 auto;
+			}
+			.change{
+				position: absolute;
+				left: 1200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" style="border: 20px solid lightgreen;">
+			<img src="1.png" alt="图片1">
+			<img src="2.png" alt="图片2">
+			<img src="3.png" alt="图片3">
+			<!-- <img src="4.png" alt="图片4">
+			<img src="5.png" alt="图片5"> -->
+		</div>
+		<button type="button">点击</button>
+		<script type="text/javascript">
+			var index = 0
+			$btn = $('button')
+			$btn.on('click',function(){
+				if(index < 2){
+					index++
+				}
+// 				else if(index = 2){
+// 					$('img:nth-child(1)').addClass('change')
+// 					console.log(2)
+// 				}
+				else{
+					index = 0
+				}
+				
+// 				if(index = 2){
+// 					// 就让第一张到最后一张的后面去
+// 					$('img:nth-child(1)').addClass('change')
+// 				}
+				$('#box').css({
+					transform: 'translate(' + -400 * index + 'px)'
+				})
+				if(index = 2){
+					setTimeout(function(){
+						$('img:nth-child(1)').addClass('change')
+					},300)
+					
+				console.log(index,$('#box')[0].style.cssText)
+				}
+				})
+			
+// 			var index = $(x.currentTarget).index()
+// 			var p = index * -600
+// 			$('#box').css({
+// 				transform: 'translate(' + 100 + 'px)'
+// 			})
+			// n = index
+			// activeBtn(allBtns.eq(n))
+			
+			
+			
+			console.log($btn)
+		</script>
+	</body>
+</html>

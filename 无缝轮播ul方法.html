@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>index</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			#box{
+				position: relative;
+				overflow: hidden;
+			}
+			ul{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			ul li{
+				float: left;
+				font-size: 200px;
+				font-weight: 600;
+				font-family: "微软雅黑";
+				text-align: center;
+			}
+			span{
+				width: 60px;
+				height: 100px;
+				position: absolute;
+				top: 50%;
+				margin-top: -50px;
+				font-size: 50px;
+				font-weight: 600;
+				line-height: 100px;
+				color: white;
+				text-align: center;
+				background: rgba(0,0,0,.4);
+			}
+			#left{
+				left: 100px;
+			}
+			#right{
+				right: 100px;
+			}
+			.one{
+				background: lightblue;
+			}
+			.two{
+				background: lightcoral;
+			}
+			.three{
+				background: lightcyan;
+			}
+			.four{
+				background: lightgreen;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=window.onresize=function(){
+				var cw=document.documentElement.clientWidth
+				var ch=document.documentElement.clientHeight
+				var oBox=document.getElementById("box")
+				var aLi=document.getElementsByTagName("li")
+				var oUl=document.getElementsByTagName("ul")[0]
+				var oLeft=document.getElementById("left")
+				var oRight=document.getElementById("right")
+				var t1=null;
+				function add(obj,attr,attr2,num,num2){
+					obj.style[attr]=num+'px'
+					obj.style[attr2]=num2+'px'
+				}
+				add(oBox,'width','height',cw,ch)
+				add(oUl,'width','height',4*cw,ch)
+				for (var i=0;i<aLi.length;i++) {
+					add(aLi[i],'width','height',cw,ch)
+					aLi[i].style.lineHeight=ch+'px'
+				}
+				oUl.style.left='-'+cw+'px'
+				var v=cw/100
+				oRight.onclick=function(){
+					var l='-'+2*cw
+					console.log(l)
+					clearInterval(t1)
+					t1=setInterval(function(){
+						oUl.style.left=oUl.offsetLeft-v+'px'
+						if(oUl.offsetLeft<=l){
+							clearInterval(t1)
+							oUl.appendChild(aLi[0])
+							oUl.style.left='-'+cw+'px'
+						}
+					},10)
+				}
+				oLeft.onclick=function(){
+					clearInterval(t1)
+					t1=setInterval(function(){
+						oUl.style.left=oUl.offsetLeft+v+'px'
+						if(oUl.offsetLeft>='0'){
+							clearInterval(t1)
+							oUl.insertBefore(aLi[3],aLi[0])
+							oUl.style.left='-'+cw+'px'
+						}
+					},10)
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li class="four">第四个</li>
+				<li class="one">第一个</li>
+				<li class="two">第二个</li>
+				<li class="three">第三个</li>
+			</ul>
+			<span id="left">&lt;</span>
+			<span id="right">&gt;</span>
+		</div>
+	</body>
+</html>

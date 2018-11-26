@@ -3,87 +3,111 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>轮播</title>
-		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+		<title>无缝轮播</title>
+		<script src="jquery-3.2.1.min.js"></script>
 		<style type="text/css">
 			#box{
-				width: 600px;
-				height: 400px;
+				width: 400px;
+				height: 300px;
 				margin: 50px auto;
-				border: 10px solid lightgreen;
 				overflow: hidden;
 			}
 			.img{
 				display: flex;
 				align-items: flex-start;
-				transition: all .5s;
+				position: relative;
 			}
-			.span{
-				width: 600px;
-				text-align: center;
-				margin-top: 20px;
+			img{
+				width: 100%;
+				position: absolute;
+				top: 0;
 			}
-			.red{
-				color: red;
+			button{
+				display: block;
+				width: 100px;
+				height: 100px;
+				margin: 0 auto;
+			}
+			.center{
+				left: 0;
+				z-index: 1;
+			}
+			.move{
+				transform: translateX(-100%);
+				transition: all 2s; 
+				z-index: 2;
+			}
+			.left{
+				left: 100%;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="box">
+		<div id="box" style="border: 20px solid lightgreen;">
 			<div class="img">
-				<img src="images/102.jpg" width="600" >
-				<img src="images/103.jpg" width="600" >
-				<img src="images/104.jpg" width="600" >
-				<img src="images/105.jpg" width="600" >
-				<img src="images/106.jpg" width="600" >
-				<img src="images/102.jpg" width="600" >
-			</div>
-			<div class="span">
-				<span>第1张</span>
-				<span>第2张</span>
-				<span>第3张</span>
-				<span>第4张</span>
-				<span>第5张</span>
+				<img src="1.png" alt="图片1">
+				<img src="2.png" alt="图片2">
+				<img src="3.png" alt="图片3">
 			</div>
 		</div>
 		<script type="text/javascript">
-			function activeBtn(x){
-				x
-					.addClass('red')
-					.siblings('.red').removeClass('red')
-			}
 			
-			var allBtns = $('span')
-			var n = 0
-			for(var i=0;i<allBtns.length;i++){
-				$(allBtns[i]).on('click',function(x){
-					var index = $(x.currentTarget).index()
-					var p = index * -600
-					$('.img').css({
-						transform: 'translate(' + p + 'px)'
-					})
-					n = index
-					activeBtn(allBtns.eq(n))
-				})
-			}
-			var size = allBtns.length
-			allBtns.eq(n % size).trigger('click')
-			var timeId = setTimer()
+// 			中间的图片给一个center类名
+// 			left为0
+// 			z-index 1
+// 			
+// 			每次图片移动到中间的时候,给定一个定时器,让他在动画结束的时候
+// 			清除所有的动画类名,只留center类名
 			
-			function setTimer(){
-				return setInterval(function(){
-					n+=1
-					allBtns.eq(n % size).trigger('click')
-				},1000)
-			}
-			$('#box').on('mouseenter',function(){
-				window.clearInterval(timeId)
-			})
-			$('#box').on('mouseleave',function(){
-				timeId=setTimer()
-			})
-			
-			
+			var $btn=$('.button1')
+			var $img=$('.img')
+			var $BTN=$('.button2')
+			var $Btn=$('.button3')
+			$('img:nth-child(1)').addClass('center')
+			var Timer=null;
+			var index= 0;
+			var i=0;
+			setInterval(function(){
+				if(index > 2){
+					index = 1
+				}
+				else{
+					++index
+				}
+				if(i == 3){
+					i=1
+				}
+				else{
+					i=index+1
+				}
+				console.log(index,i)
+					$('img:nth-child('+index+')').addClass('move')
+					$('img:nth-child('+i+')').addClass('left move')
+					setTimeout(function(){
+						$('img:nth-child('+index+')').removeClass('move center')
+						$('img:nth-child('+i+')').removeClass('left move')
+						$('img:nth-child('+i+')').addClass('center')
+					},2000)
+			},4000)
+// 			$btn.on('click',)
+// 			$BTN.on('click',function(){
+// 				$('img:nth-child(2)').addClass('move')
+// 				$('img:nth-child(3)').addClass('left move')
+// 				setTimeout(function(){
+// 					$('img:nth-child(2)').removeClass('move center')
+// 					$('img:nth-child(3)').removeClass('left move')
+// 					$('img:nth-child(3)').addClass('center')
+// 				},2000)
+// 			})
+// 			$Btn.on('click',function(){
+// 				$('img:nth-child(3)').addClass('move')
+// 				$('img:nth-child(1)').addClass('left move')
+// 				setTimeout(function(){
+// 					$('img:nth-child(3)').removeClass('move center')
+// 					$('img:nth-child(1)').removeClass('left move')
+// 					$('img:nth-child(1)').addClass('center')
+// 				},2000)
+// 			})
 		</script>
 	</body>
 </html>

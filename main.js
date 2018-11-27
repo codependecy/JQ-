@@ -31,8 +31,8 @@
 					$('img:nth-child(' + index + ')').removeClass('move center')
 					$('img:nth-child(' + i + ')').removeClass('left move')
 					$('img:nth-child(' + i + ')').addClass('center')
-				}, 2000)
-			}, 4000)
+				},1000)
+			},2000)
 			// 			$btn.on('click',)
 			// 			$BTN.on('click',function(){
 			// 				$('img:nth-child(2)').addClass('move')

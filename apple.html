@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>apple轮播</title>
+		<script src="jquery-3.2.1.min.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			#box{
+				width: 920px;
+				overflow: hidden;
+				margin: 100px auto;
+				border: 1px solid #fff;
+				box-shadow: 0 0 3px #AAAAAA;
+				background: url(images/panel.jpg) repeat-x bottom center #ffffff;
+				border-bottom-right-radius: 4px;
+			}
+			.img{
+				display: flex;
+				align-items: flex-start;
+				transition: all 1.5s;
+			}
+			.menu{
+				height: 45px;
+				text-align: center;
+			}
+			ul li{
+				display: inline-block;
+				width: 60px;
+				height: 45px;
+			}
+			li img{
+				display: block;
+				border: none;
+				margin: 10px auto;
+			}
+			li.active{
+				background: url(images/active_bg.png) no-repeat;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="img">
+				<img src="images/macbook.jpg" alt="macbook">
+				<img src="images/iphone.jpg" alt="iphone">
+				<img src="images/imac.jpg" alt="imac">
+				<img src="images/info.jpg" alt="info">
+			</div>
+			<div class="menu">
+				<ul>
+					<li><img src="images/thumb_macbook.png"></li>
+					<li><img src="images/thumb_iphone.png" ></li>
+					<li><img src="images/thumb_imac.png" ></li>
+					<li><img src="images/thumb_about.png" ></li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var index=0
+			var $li=$('li')
+			function move(){
+				$('.img').css({transform:'translateX(' + -index*920 + 'px)'}),
+				console.log(index)
+			}
+			function addActive($li){
+				$li
+				 .addClass('active')
+				 .siblings('.active').removeClass('active')
+			}
+			addActive($('li').eq(index))
+			$('li').on('click',function(x){
+				index=$(x.currentTarget).index()
+				move()
+				addActive($('li').eq(index))
+			})
+			var timer=setTimer()
+			function setTimer(){
+				return setInterval(function(){
+					index+=1
+					$li.eq(index%4).trigger('click')
+				},2000)
+			}
+			$('#box').on('mouseenter',function(){
+				window.clearInterval(timer)
+			})
+			$('#box').on('mouseleave',function(){
+				timer=setTimer()
+			})
+		</script>
+	</body>
+</html>

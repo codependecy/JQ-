@@ -31,7 +31,7 @@ button {
 
 .move {
 	transform: translateX(-100%);
-	transition: all 2s;
+	transition: all 1s;
 	z-index: 2;
 }
 
